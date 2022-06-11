@@ -26,16 +26,33 @@ def showprojects(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+def showproject(request, pk):
+    project = Project.objects.get(id=pk)
+    serializer = ProjectSerializer(project, many=False)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def createproject(request):
+    serializer = ProjectSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
 def showprofiles(request):
     profiles = Profile.objects.all()
     serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def showproject(request, pk):
-    projects = Project.objects.all(id=pk)
-    serializer = ProjectSerializer(projects, many=False)
+def showprofile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    serializer = ProfileSerializer(profile, many=True)
     return Response(serializer.data)
+
+
       
 
     
