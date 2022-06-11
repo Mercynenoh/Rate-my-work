@@ -15,6 +15,10 @@ def apiOverView(request):
     }
 
     return Response('api_urls');
+@apiOverView(['GET'])
+def showall(request):
+    projects = Project.objects.all()
+    profiles = Profile.objects.all()
       
 
     
