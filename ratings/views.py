@@ -13,6 +13,10 @@ class ProjectList(ListView):
 
     def get_queryset(self):
         return Project.objects.all()
+
+def viewProject(request, pk):
+    project = Project.objects.get(id=pk)
+    return render(request, 'project/project.html', {'project':project})
         
 @api_view(['GET'])
 def apiOverView(request):

@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('apis', views.apiOverView, name='api'),
     path('projects/', views.showprojects, name='project-list'),
+    path('viewproject/<int:pk>', views.viewProject, name='viewproject'),
     path('project/<int:pk>', views.showproject, name='project'),
     path('projectcreate/', views.createproject, name='create'),
     path('projectupdate/<int:pk>', views.showproject, name='update'),
