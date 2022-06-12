@@ -7,3 +7,6 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap : 2rem
   }
+  .my-4{
+    margin-left: 100px;
+  }
