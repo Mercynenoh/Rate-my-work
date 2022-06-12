@@ -13,8 +13,8 @@ def apiOverView(request):
         'List':"/project-list/",
         'Detail View':"/project-detail/<int:id>",
         'Create':"/project-create",
-        'Update':"/project-update/<int:id>",
-        'Delete':"/project-delete/<int:id>",
+        'Update':"/projectupdate/<int:id>",
+        'Delete':"/projectdelete/<int:id>",
 
     }
 
@@ -39,6 +39,20 @@ def createproject(request):
         serializer.save()
     return Response(serializer.data)
 
+@api_view(['POST'])
+def updateproject(request, pk):
+    project = Project.objects.get(id=pk)
+    serializer = ProjectSerializer(instance=project, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def deleteproject(request, pk):
+    project = Project.objects.get(id=pk)
+    project.delete()
+    return Response('Project deleted successfully')
+
 
 @api_view(['GET'])
 def showprofiles(request):
@@ -50,6 +64,22 @@ def showprofiles(request):
 def showprofile(request, pk):
     profile = Profile.objects.get(id=pk)
     serializer = ProfileSerializer(profile, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def createprofile(request):
+    serializer = ProfileSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def updateprofile(request, pk):
+    project = Projfile.objects.get(id=pk)
+    serializer = ProfileSerializer(instance=profile, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
     return Response(serializer.data)
 
 
