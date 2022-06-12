@@ -7,6 +7,19 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap : 2rem
   }
-  .my-4{
-    margin-left: 100px;
+ 
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    /* text-align: center; */
+    width: 800px;
+    height: auto;
+    margin:auto;
+    font-weight: 600;
+    height: 400px;
   }
+  body{
+     background-color: #f1f1f1;
+  }
+
+   
+  
