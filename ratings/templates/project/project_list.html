@@ -15,15 +15,23 @@
                 {% for image in object_list %}
                 <div class="column">
                 <div class="card" style="width: 22rem;">
-                    <img src="{{ image.image.url }}" class="card-img-top" height="250px" alt="Sunset Over the Sea"/>
+                    <a
+        class="open-image"
+        href="{% url 'image' image.id %}"
+        data-popup-url="{% url 'image' image.id %}}"
+        > <img src="{{image.image.url}}" class="card-img-top" height="250px" alt="Fissure in Sandstone"/></a>
                     <div class="card-body">
                       <p class="card-text">Project Name:{{ image.title }}</p>
+                      <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
                     </div>
+                    <footer class="blockquote-footer"> <cite title="Source Title">By:{{ user.username }}</cite></footer>
                   </div>
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
+{% include "project/image-modal.html" %}
 
 {% endblock %} 

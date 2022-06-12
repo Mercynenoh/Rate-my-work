@@ -14,6 +14,10 @@ class ProjectList(ListView):
     def get_queryset(self):
         return Project.objects.all()
 
+def project_list(request):
+    projects = models.Project.objects.all()
+    return render(request, "project/project_list.html", {'project':project})
+
 def viewProject(request, pk):
     project = Project.objects.get(id=pk)
     return render(request, 'project/project.html', {'project':project})
