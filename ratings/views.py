@@ -3,10 +3,17 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Project, Profile
 from .serializers import ProjectSerializer, ProfileSerializer
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView
 
 # Create your views here.
-def home(request):
-    return render ( request, 'project/home.html')
+class ProjectList(ListView):
+    model = Project
+    template_name = 'project/project_list.html'
+
+    def get_queryset(self):
+        return Project.objects.all()
+        
 @api_view(['GET'])
 def apiOverView(request):
     api_urls ={
