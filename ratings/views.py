@@ -5,6 +5,7 @@ from .models import Project, Profile
 from .serializers import ProjectSerializer, ProfileSerializer
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 class ProjectList(ListView):
