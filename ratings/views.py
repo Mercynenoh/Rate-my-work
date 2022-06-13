@@ -19,6 +19,7 @@ def project_list(request):
     projects = models.Project.objects.all()
     return render(request, "project/project_list.html", {'project':project})
 
+@login_required
 class ProfileList( ListView):
     model = Profile
     template_name = 'project/profile_list.html'
@@ -35,10 +36,25 @@ def viewProject(request, pk):
     project = Project.objects.get(id=pk)
     return render(request, 'project/project.html', {'project':project})
 
+@login_required
 class ProjectCreate(CreateView):
     model = Project
     fields = ['image', 'title', 'description', 'link', 'author']
     success_url = '/'
+    
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username = username, password = password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
         
 @api_view(['GET'])
 def apiOverView(request):
