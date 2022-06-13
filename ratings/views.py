@@ -18,9 +18,26 @@ def project_list(request):
     projects = models.Project.objects.all()
     return render(request, "project/project_list.html", {'project':project})
 
+class ProfileList( ListView):
+    model = Profile
+    template_name = 'project/profile_list.html'
+
+    def get_queryset(self):
+        return Profile.objects.all()
+
+def profile_list(request):
+        profiles = models.Profile.objects.all()
+        return render(request, "project/post_list.html", {'profiles':profiles})
+
+
 def viewProject(request, pk):
     project = Project.objects.get(id=pk)
     return render(request, 'project/project.html', {'project':project})
+
+class ProjectCreate(CreateView):
+    model = Project
+    fields = ['image', 'title', 'description', 'link', 'author']
+    success_url = '/'
         
 @api_view(['GET'])
 def apiOverView(request):

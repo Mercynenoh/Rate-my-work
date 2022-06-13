@@ -5,9 +5,10 @@
 {% block content %}
 
 <div class="container-fluid">
-    <h1 class="text-center"> Welcome to The-Photo-Gallery</h1>
-    <h5 class="text-center"><em>Note: You can click on the image to expand and view details</em></h5>
-   
+    <div style="height:20vh" class="text-right">
+      <button class="btn btn-light btn-lg mt-4">  <a>LOGIN</a>/ <a>SIGNUP</a></button>
+     <a class="btn btn-dark btn-lg mt-4 " href="{% url 'new' %}">SUBMIT YOUR SITE</a>
+    </div>
     <div class="row">
             <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             </div>
@@ -16,14 +17,16 @@
                 <div class="column">
                 <div class="card" style="width: 22rem;">
                     <a
-        class="open-image"
-        href="{% url 'image' image.id %}"
-        data-popup-url="{% url 'image' image.id %}}"
-        > <img src="{{image.image.url}}" class="card-img-top" height="250px" alt="Fissure in Sandstone"/></a>
+                    class="open-image"
+                    href="{% url 'image' image.id %}"
+                    data-popup-url="{% url 'image' image.id %}}"
+                    > <img src="{{image.image.url}}" class="card-img-top" height="250px" alt="Fissure in Sandstone"/></a>
                     <div class="card-body">
                       <p class="card-text">Project Name:{{ image.title }}</p>
-                      <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                      {% for profile in object_list %}
+                      <a href="#" class="card-link"><img src="{{profile.image.url}}" height="50px" width="50px" style="border-radius:50%;" class="mt-4"></a> 
+                        <!-- <a href="#" class="card-link">Another link</a> --> 
+                        {% endfor %}
                     </div>
                     <footer class="blockquote-footer"> <cite title="Source Title">By:{{ user.username }}</cite></footer>
                   </div>
