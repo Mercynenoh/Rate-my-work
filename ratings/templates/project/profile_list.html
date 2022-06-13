@@ -2,7 +2,7 @@
 {% block content %}
 {% for profile in object_list %}
 {% if user.is_authenticated %}
-<img src="{{profile.image.url}}" height="100px" width="100px" style="border-radius:50%;" class="mt-4">
+<img src="{{profile.pic.url}}" height="100px" width="100px" style="border-radius:50%;" class="mt-4">
 <p class="card-text p-3"><em>Username: {{user.username}} </p> 
     <h3>My posts</h3>
 <img src="{{profile.project.image.url}}" height="200px" width="200px"  class="mt-4">
