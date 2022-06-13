@@ -8,9 +8,10 @@
     </div>
     <div class="row">
       <div class="col-md-6 offset-md-3 mt-3">
+        <div class="card"  style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); background-image: linear-gradient(rgb(141, 178, 178), rgb(235, 193, 200));">
         <form method="post" action="{% url 'login' %}">
           {% csrf_token %}
-          <div class="form-group">
+          <div class="form-group card-body">
             {{ form.username.label_tag }}
             <input
               type="text"
@@ -21,7 +22,7 @@
               required
             />
           </div>
-          <div class="form-group">
+          <div class="form-group ml-3">
             {{ form.password.label_tag }}
             <input
               type="password"
@@ -36,7 +37,8 @@
             {{ error|escape }}
           </p>
           {% endfor %} {% endif %}
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit" class="btn btn-secondary ml-2">Login</button>
+        </div>
         </form>
       </div>
     </div>

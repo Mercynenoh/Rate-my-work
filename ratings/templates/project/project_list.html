@@ -5,8 +5,8 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div style="height:20vh" class="text-right">
-      <button class="btn btn-light btn-lg mt-4">  <a>LOGIN</a>/ <a>SIGNUP</a></button>
+    <div style="height:30vh" class="text-right">
+      <button class="btn btn-light btn-lg mt-4">  <a href="/login/" class="text-dark">LOGIN</a>/ <a href="register" class="text-dark">SIGNUP</a></button>
      <a class="btn btn-dark btn-lg mt-4 " href="{% url 'new' %}">SUBMIT YOUR SITE</a>
     </div>
     <div class="row">
@@ -25,7 +25,7 @@
                       <p class="card-text">Project Name:{{ image.title }}</p>
                         <!-- <a href="#" class="card-link">Another link</a> --> 
                     </div>
-                    <footer class="blockquote-footer"> <cite title="Source Title">By:{{ user.username }}</cite></footer>
+                    <footer class="blockquote-footer"><h5>By:{{ image.author }}</h5></footer>
                   </div>
             </div>
             {% endfor %}

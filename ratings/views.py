@@ -53,7 +53,7 @@ def register(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username = username, password = password)
             login(request, user)
-            return redirect('home')
+            return redirect('/login')
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
