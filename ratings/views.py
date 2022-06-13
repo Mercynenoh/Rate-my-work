@@ -5,7 +5,10 @@ from .models import Project, Profile
 from .serializers import ProjectSerializer, ProfileSerializer
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, reverse
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 class ProjectList(ListView):
@@ -19,7 +22,6 @@ def project_list(request):
     projects = models.Project.objects.all()
     return render(request, "project/project_list.html", {'project':project})
 
-@login_required
 class ProfileList( ListView):
     model = Profile
     template_name = 'project/profile_list.html'
@@ -36,12 +38,12 @@ def viewProject(request, pk):
     project = Project.objects.get(id=pk)
     return render(request, 'project/project.html', {'project':project})
 
-@login_required
-class ProjectCreate(CreateView):
+
+class ProjectCreate(LoginRequiredMixin, CreateView):
     model = Project
     fields = ['image', 'title', 'description', 'link', 'author']
     success_url = '/'
-    
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)

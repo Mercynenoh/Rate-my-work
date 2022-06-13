@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from ratings.views import ProjectList,ProfileList, ProjectCreate
 from django.contrib.auth import views as auth_views
-from . import views
+from ratings import views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
