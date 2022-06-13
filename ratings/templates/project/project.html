@@ -10,6 +10,28 @@
           <h5 class="card-title">{{project.title}}</h5>
           <p class="card-text">{{project.description}}</p>
           <a href="{{project.link}}" class="btn btn-secondary" target="_blank" >View Site</a>
+          <h1>Reviews</h1>
+          <form action="" method="POST">
+            {% csrf_token %}
+            <h5>Write Review</h5>
+            <div>
+                <!-- Rating stars -->
+                <label>Rate this work</label>
+                <br>
+                <div class="rate">
+                    <input type="radio" name="rating" id="" required>
+                </div>
+                Review title:
+                <input type="text" class="form-control" name="subject">
+                <br>
+                Review:
+                <br>
+                <textarea type="text" name="review" class="form-control"rows="4"></textarea>
+                <br>
+                <input type="submit" value="Submit Review" class="btn btn-secondary ml-2">
+            </div>
+
+          </form>
         </div>
       </div>
               

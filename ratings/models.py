@@ -29,7 +29,7 @@ class Reviewrating(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     subject =  models.CharField(max_length =50, blank=True)
     review = models.TextField(blank=True)
-    rating = models.FloatField()
+    rating = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
-     def __str__(self):
+    def __str__(self):
         return self.subject
