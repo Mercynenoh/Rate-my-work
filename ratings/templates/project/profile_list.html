@@ -2,6 +2,7 @@
 {% block content %}
 {% for profile in object_list %}
 <a href=" {% url 'newprofile' %}" class="btn btn-info mt-4"> Create profile</a><br>
+{% if user.is_authenticated %}
 <img src="{{profile.pic.url}}" height="100px" width="100px" style="border-radius:50%;" class="mt-4">
 <p class="card-text"><em>{{user.username}} </p> 
     <p class="card-text"><em>{{profile.email}} </p>
@@ -11,6 +12,6 @@
 <img src="{{profile.project.image.url}}" height="200px" width="200px"  class="mt-4">
 <p class="card-text p-3"><em>{{profile.project.title}} </p>
     <h1> You have no profile yet. Create one below:</h1>
-   <a href=" {% url 'newprofile' %}" class="btn btn-info mt-4"> Create profile</a>
+    {% endif %}
  {% endfor %}
 {% endblock %} 
