@@ -9,6 +9,8 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import ReviewForm
+from django.contrib import messages
 
 # Create your views here.
 class ProjectList(ListView):
@@ -57,6 +59,25 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+
+def submitreview(request):
+    if request.method == 'POST':
+        form =ReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.INFO, 'Your review has been submitted')
+            return redirect('/')
+           
+        else:
+            form =ReviewForm(request.POST)
+            if form.is_valid():
+                data=Reviewrating()
+                data.rating = form.cleaned_data.get('rating')
+                data.save()
+                messages.success(request, 'Your review has been submitted')
+            return redirect('/')
+  
         
 @api_view(['GET'])
 def apiOverView(request):
@@ -127,7 +148,7 @@ def createprofile(request):
 
 @api_view(['POST'])
 def updateprofile(request, pk):
-    project = Projfile.objects.get(id=pk)
+    project = Profile.objects.get(id=pk)
     serializer = ProfileSerializer(instance=profile, data=request.data)
     if serializer.is_valid():
         serializer.save()
