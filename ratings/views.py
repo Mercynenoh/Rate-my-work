@@ -46,6 +46,11 @@ class ProjectCreate(LoginRequiredMixin, CreateView):
     fields = ['image', 'title', 'description', 'link', 'author']
     success_url = '/'
 
+class ProfileCreate(LoginRequiredMixin, CreateView):
+    model = Profile
+    fields = ['pic', 'bio', 'email', 'phone', 'author', 'project']
+    success_url = '/profile/'
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)

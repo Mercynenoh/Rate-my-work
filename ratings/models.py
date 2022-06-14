@@ -16,7 +16,7 @@ class Project(models.Model):
 class Profile(models.Model):
     pic = models.ImageField(upload_to = 'articles/',default='IMAGE')
     bio =  models.CharField(max_length =100)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, blank=True)
     email = models.CharField(max_length =30)
     phone =  models.CharField(max_length =10)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

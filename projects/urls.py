@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from ratings.views import ProjectList,ProfileList, ProjectCreate
+from ratings.views import ProjectList,ProfileList, ProjectCreate,ProfileCreate
 from django.contrib.auth import views as auth_views
 from ratings import views
 
@@ -27,6 +27,7 @@ urlpatterns = [
     path('', ProjectList.as_view(), name='list'),
     path('profile/', ProfileList.as_view(), name='list'),
     path('new/', ProjectCreate.as_view(), name='new'),
+    path('newprofile/', ProfileCreate.as_view(), name='newprofile'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('register/', views.register, name='register'),
