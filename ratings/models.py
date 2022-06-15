@@ -12,6 +12,11 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+    
+    @classmethod
+    def search_by_author(cls,search_term):
+        ratings = cls.objects.filter(author__username__icontains=search_term)
+        return ratings
 
 class Profile(models.Model):
     pic = models.ImageField(upload_to = 'articles/',default='IMAGE')
@@ -33,3 +38,5 @@ class Reviewrating(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.subject
+
+  

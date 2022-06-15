@@ -1,0 +1,28 @@
+{%extends 'project/base.html'%} 
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    {% if projects %}
+      <h2>Found {{ projects|length }} of searched term {{message}}</h2>
+    {% else %}
+      <h2> {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+  {% if projects %}
+    {% for project in projects %}
+      <div class="col-sm-6 col-md-3 my-3 m-4">
+        <!-- <img src="{{post.profile.pic.url}}" src="" height="100px" width="100px"style="border-radius: 50px; justify-items: center;" > -->
+        <img src="{{project.image.url}}" src="" height="300px" width="300px"style="border-radius: 8px; justify-items: center;" >
+        <p>{{project.description}}<br>{{project.caption}}<br><em >{{project.created}}</em><br><em>{{project.location}}</em></p>
+        
+      </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -82,6 +82,19 @@ def submitreview(request):
                 data.save()
                 messages.success(request, 'Your review has been submitted')
             return redirect('/')
+
+def search_results(request):
+
+    if 'project' in request.GET and request.GET["project"]:
+        search_term = request.GET.get("project")
+        searched_projects = Project.search_by_author(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'project/search.html',{"message":message,"projects": searched_projects})
+
+    else:
+        message = "Ooops we can't find that!!"
+        return render(request, 'project/search.html',{"message":message})
   
         
 @api_view(['GET'])
