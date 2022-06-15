@@ -6,13 +6,13 @@ urlpatterns = [
     path('apis', views.apiOverView, name='api'),
     path('projects/', views.showprojects, name='project-list'),
     path('image/<str:pk>', views.viewProject, name='image'),
-    path('project/<int:pk>', views.showproject, name='project'),
+    path('projects/<int:pk>', views.showproject, name='project'),
     path('review/', views.submitreview, name='review'),
-    path('projectcreate/', views.createproject, name='create'),
-    path('projectupdate/<int:pk>', views.showproject, name='update'),
-    path('delete/<int:pk>', views.showproject, name='delete'),
+    # path('projectcreate/', views.createproject, name='create'),
+    # path('projectupdate/<int:pk>', views.showproject, name='update'),
+    # path('delete/<int:pk>', views.showproject, name='delete'),
     path('profiles/', views.showprofiles, name='project-list'),
-    path('profile/<int:pk>', views.showprofile, name='project'),
+    path('profiles/<int:pk>', views.showprofile, name='project'),
 
 
 ]

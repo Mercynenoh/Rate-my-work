@@ -11,6 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ReviewForm
 from django.contrib import messages
+from rest_framework import status
 
 # Create your views here.
 class ProjectList(ListView):
@@ -109,70 +110,91 @@ def apiOverView(request):
     }
 
     return Response('api_urls');
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def showprojects(request):
-    projects = Project.objects.all()
-    serializer = ProjectSerializer(projects, many=True)
-    return Response(serializer.data)
+        """
+        List all code snippets, or create a new snippet.
+        """
+        if request.method == 'GET':
+            projects = Project.objects.all()
+            serializer = ProjectSerializer(projects, many=True)
+            return Response(serializer.data)
 
-@api_view(['GET'])
+        elif request.method == 'POST':
+            serializer = ProjectSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET', 'PUT', 'DELETE'])
 def showproject(request, pk):
-    project = Project.objects.get(id=pk)
-    serializer = ProjectSerializer(project, many=False)
-    return Response(serializer.data)
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        project = Project.objects.get(id=pk)
+    except project.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-@api_view(['POST'])
-def createproject(request):
-    serializer = ProjectSerializer(data=request.data)
+    if request.method == 'GET':
+        serializer = ProjectSerializer(project)
+        return Response(serializer.data)
 
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ProjectSerializer(project, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-def updateproject(request, pk):
-    project = Project.objects.get(id=pk)
-    serializer = ProjectSerializer(instance=project, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def deleteproject(request, pk):
-    project = Project.objects.get(id=pk)
-    project.delete()
-    return Response('Project deleted successfully')
+    elif request.method == 'DELETE':
+        project.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def showprofiles(request):
-    profiles = Profile.objects.all()
-    serializer = ProfileSerializer(profiles, many=True)
-    return Response(serializer.data)
+        """
+        List all code snippets, or create a new snippet.
+        """
+        if request.method == 'GET':
+            profiles = Profile.objects.all()
+            serializer = ProfileSerializer(profiles, many=True)
+            return Response(serializer.data)
 
-@api_view(['GET'])
+        elif request.method == 'POST':
+            serializer = ProfileSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
 def showprofile(request, pk):
-    profile = Profile.objects.get(id=pk)
-    serializer = ProfileSerializer(profile, many=True)
-    return Response(serializer.data)
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        profile = Profile.objects.get(id=pk)
+    except profile.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-@api_view(['POST'])
-def createprofile(request):
-    serializer = ProfileSerializer(data=request.data)
+    if request.method == 'GET':
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
 
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ProfileSerializer(profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-def updateprofile(request, pk):
-    project = Profile.objects.get(id=pk)
-    serializer = ProfileSerializer(instance=profile, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+    elif request.method == 'DELETE':
+        profile.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-      
+
 
     
